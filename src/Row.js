@@ -6,7 +6,7 @@ import './Row.css';
 //포스터이미지 url
 const base_url = "https://image.tmdb.org/t/p/original/";
 
-function Row({ title, fetchUrl }) {
+function Row({ title, fetchUrl, isLargeRow }) {
     const [movies, setMovies] = useState([]);
     
     //하나의 snippet
@@ -31,13 +31,15 @@ function Row({ title, fetchUrl }) {
         <h2>{title}</h2>
 
         <div className="row_posters">
-        {/* several row_posters */}
-        {movies.map(movie => (
+        {movies.map((movie) => (
             <img 
-            className="row_poster" 
-            src={`${base_url}${movie.poster_path}`} alt="{movie.name}"/>
+                key={movie.id}
+                className={`row_poster ${isLargeRow && "row_posterLarge"}`}
+                src={`${base_url}${
+                    isLargeRow ? movie.poster_path : movie.backdrop_path}`} 
+                alt={movie.name}
+            />
         ))}
-
         </div>
     </div>
   )
